@@ -1,19 +1,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: job-batch
+  name: job-batch-{{ jobID }}
 spec:
-  completions: 8
-  parallelism: 2
+  completions: {{ completions }}
+  parallelism: {{ parallelism }}
   template:
     metadata:
       name: job-workers
     spec:
+      ttlSecondsAfterFinished: 0 # currently not working, needs TTLAfterFinished feature gate
       containers:
           - name: job-worker
-            image: busybox
-            command: ["sh", "-c", "echo Processing item $ITEM && sleep 5"]
-            env:
-                - name: ITEM
-                  value: {{ item }}
+            image: busybox:{{ tag }}
+            command: ["sh", "-c", "echo Processing item && sleep 5"]
       restartPolicy: Never
