@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: jobs
+  name: deploy-batch
+  labels:
+    app: tester
+    role: deployer
+spec:
+  restartPolicy: Never
+  serviceAccountName: deployer
+  containers:
+  - name: deploy-batch
+    image: yaqc/tester:v1.1

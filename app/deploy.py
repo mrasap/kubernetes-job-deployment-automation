@@ -39,7 +39,7 @@ def deploy_job_batch(api_client: BatchV1Api,
         parallelism=parallelism))
 
     try:
-        api_response = api_client.create_namespaced_job(namespace="default", body=job)
+        api_response = api_client.create_namespaced_job(namespace="jobs", body=job)
         return api_response
     except ApiException as e:
         print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
