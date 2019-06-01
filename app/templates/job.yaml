@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-batch
+spec:
+  completions: 8
+  parallelism: 2
+  template:
+    metadata:
+      name: job-workers
+    spec:
+      containers:
+          - name: job-worker
+            image: busybox
+            command: ["sh", "-c", "echo Processing item $ITEM && sleep 5"]
+            env:
+                - name: ITEM
+                  value: {{ item }}
+      restartPolicy: Never
