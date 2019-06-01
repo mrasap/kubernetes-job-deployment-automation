@@ -1,8 +1,12 @@
 # kubernetes-job-deployment-automation
-Demo app to try out kubernetes python client to automate deployment of jobs
+Demo app to try out kubernetes python client to automate deployment of jobs.
+
+I used this app to try out the kubernetes python client and to learn more about RBAC. I will be using this as a template for the YAQC project, a context project at the TU Delft.
 
 The jobs are doing nothing useful (printing out to shell), they are placeholders just to prove the principle.
 You can add your own image and command args in the job template to make it useful.
+
+
 
 ## Requirements
 You have a kubernetes cluster running somewhere with valid kubeconfig credentials in `~/.kube/config`.
