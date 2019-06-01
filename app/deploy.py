@@ -6,7 +6,7 @@ import yaml
 
 # The environment of jinja to retrieve jinja templates from filesystem
 env = Environment(
-    loader=PackageLoader(package_name='app', package_path='templates'),
+    loader=PackageLoader(package_name=__name__, package_path='templates'),
     autoescape=select_autoescape(enabled_extensions=['yaml'])
 )
 
@@ -45,18 +45,18 @@ def deploy_job_batch(api_client: BatchV1Api,
         print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
 
 
-if __name__ == "__main__":
-    JOB_ID: str = "seven"
+def main():
+    JOB_ID: str = "one"
     PROJECT_ENV: str = "latest"
     COMPLETIONS: int = 4
     PARALLELISM: int = 2
 
     # Configure the kubernetes client to connect to our cluster
     # The default config expects a config file with valid credentials in ~/.kube/
-    config.load_kube_config()
+    # config.load_kube_config()
     # You can also request the access from within the cluster
     # it works only if this script is run by K8s as a POD
-    # config.load_incluster_config()
+    config.load_incluster_config()
 
     # this is the RESTful API instance that we can post requests to
     api_client = BatchV1Api()
@@ -66,3 +66,7 @@ if __name__ == "__main__":
                      project_env=PROJECT_ENV,
                      completions=COMPLETIONS,
                      parallelism=PARALLELISM)
+
+
+if __name__ == '__main__':
+    main()
